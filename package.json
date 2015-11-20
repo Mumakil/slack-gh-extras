@@ -1,0 +1,23 @@
+{
+  "name": "slack-gh-extras",
+  "version": "0.0.1",
+  "description": "Missing Slack GitHub /commands",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mumakil/slack-gh-extras.git"
+  },
+  "keywords": [
+    "slack",
+    "github"
+  ],
+  "author": "Otto Vehviläinen <otto@mumakil.fi>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mumakil/slack-gh-extras/issues"
+  },
+  "homepage": "https://github.com/mumakil/slack-gh-extras#readme"
+}
