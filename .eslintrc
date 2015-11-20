@@ -6,6 +6,8 @@
   },
   "rules": {
     "no-console": 0,
-    "newline-after-var": 0
+    "newline-after-var": 0,
+    "no-magic-numbers": 0,
+    "id-match": 0
   }
 }
