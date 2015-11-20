@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["strict"],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "no-console": 0,
+    "newline-after-var": 0
+  }
+}
