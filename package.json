@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "babel-node index.js",
-    "lint": "eslint index.js lib/*.js || true"
+    "start": "node index.js",
+    "lint": "eslint index.js lib/**/*.js || true"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,12 @@
   },
   "homepage": "https://github.com/mumakil/slack-gh-extras#readme",
   "dependencies": {
-    "babel-cli": "^6.2.0",
+    "babel": "^6.1.18",
+    "babel-core": "^6.2.1",
     "body-parser": "^1.14.1",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "hiredis": "^0.4.1",
+    "redis": "^2.3.1"
   },
   "engines": {
     "node": "5.0.0"
