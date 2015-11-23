@@ -29,7 +29,9 @@
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "hiredis": "^0.4.1",
+    "lodash": "^3.10.1",
     "moment": "^2.10.6",
+    "node-slack": "0.0.7",
     "octonode": "^0.7.4",
     "redis": "^2.3.1"
   },
