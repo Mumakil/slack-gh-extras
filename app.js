@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const hook = require('./lib/hook');
+import hook from './lib/hook';
 
 const app = express();
 
