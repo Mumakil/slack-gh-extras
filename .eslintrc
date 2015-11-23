@@ -8,6 +8,9 @@
     "no-console": 0,
     "newline-after-var": 0,
     "no-magic-numbers": 0,
-    "id-match": 0
+    "id-match": 0,
+    "filenames/filenames": 0,
+    "no-else-return": 0,
+    "id-length": 0
   }
 }
