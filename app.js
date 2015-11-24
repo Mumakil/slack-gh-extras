@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/hook', hook);
+app.get('/hook', (req, res) => res.status(200).send('OK'));
 
 const defaultPort = 3000;
 const port = Number(process.env.PORT) || defaultPort;
