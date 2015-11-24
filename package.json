@@ -28,7 +28,6 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.2.0",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
-    "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "node-slack": "0.0.7",
     "octonode": "^0.7.4"
