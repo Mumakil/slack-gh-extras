@@ -26,6 +26,7 @@
     "babel": "^6.1.18",
     "babel-core": "^6.2.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.2.0",
+    "babel-polyfill": "^6.2.0",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "moment": "^2.10.6",
