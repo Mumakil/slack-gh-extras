@@ -34,7 +34,7 @@
     "octonode": "^0.7.4"
   },
   "engines": {
-    "node": "5.0.0"
+    "node": "5.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.5",
