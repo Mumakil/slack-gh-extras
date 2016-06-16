@@ -11,6 +11,8 @@
     "id-match": 0,
     "filenames/filenames": 0,
     "no-else-return": 0,
-    "id-length": 0
+    "id-length": 0,
+    "template-curly-spacing": 0,
+    "comma-dangle": [2, "always-multiline"]
   }
 }
