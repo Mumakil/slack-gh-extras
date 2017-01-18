@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170118155623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "users", force: :cascade do |t|
+    t.bigint   "github_id",     null: false
+    t.string   "github_token",  null: false
+    t.string   "github_handle", null: false
+    t.string   "slack_id",      null: false
+    t.string   "slack_handle",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["github_id"], name: "index_users_on_github_id", unique: true, using: :btree
+    t.index ["slack_id"], name: "index_users_on_slack_id", unique: true, using: :btree
+  end
 
 end
