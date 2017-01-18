@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: slack-gh-extras_production
-  username: slack-gh-extras
-  password: <%= ENV['SLACK-GH-EXTRAS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
