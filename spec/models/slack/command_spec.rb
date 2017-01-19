@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+require 'slack_helper'
+
+RSpec.describe Slack::Command, type: :model do
+
+  before do
+    slack_test_configuration!
+  end
+
+  context 'validation' do
+    it 'is not valid if empty' do
+      expect(Slack::Command.new).not_to be_valid
+    end
+
+    it 'is valid with correct domain, command and token' do
+      expect(
+        Slack::Command.new(
+          team_domain: Slack::Configuration.team_domain,
+          token: Slack::Configuration.command_token,
+          command: Slack::Configuration.command
+        )
+      ).to be_valid
+      # make sure default factory is valid
+      expect(FactoryGirl.build(:slack_command)).to be_valid
+    end
+  end
+end
