@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118155623) do
+ActiveRecord::Schema.define(version: 20170120165640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "repo_lists", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_repo_lists_on_name", unique: true, using: :btree
+  end
+
+  create_table "repositories", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.integer  "repo_list_id", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["name", "repo_list_id"], name: "index_repositories_on_name_and_repo_list_id", unique: true, using: :btree
+    t.index ["repo_list_id"], name: "index_repositories_on_repo_list_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.bigint   "github_id",     null: false
@@ -27,4 +43,5 @@ ActiveRecord::Schema.define(version: 20170118155623) do
     t.index ["slack_id"], name: "index_users_on_slack_id", unique: true, using: :btree
   end
 
+  add_foreign_key "repositories", "repo_lists"
 end
