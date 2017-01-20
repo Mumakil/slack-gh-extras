@@ -16,8 +16,5 @@ module Github
       @client ||= Octokit::Client.new(access_token: accesstoken)
       @client
     end
-
   end
-
-  class ErrUnauthorized < RuntimeError; end
 end

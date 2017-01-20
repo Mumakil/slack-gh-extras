@@ -5,9 +5,9 @@ module Slack
     ##
     # Token sets or clears accesstoken
     class Token < Slack::Command
+      include Github::UserOperations
 
       VALID_ACTIONS = %w(set clear).freeze
-      REQUIRED_SCOPES = %w(repo).freeze
 
       validates_each :action do |record, _attr, value|
         unless VALID_ACTIONS.include?(value)
@@ -37,9 +37,9 @@ module Slack
       def process_set_action!
         operation = fetch_user!(github_token)
         github_user = operation.user
-        if REQUIRED_SCOPES & operation.scopes != REQUIRED_SCOPES
+        unless valid_scopes?(operation.scopes)
           return 'Setting token failed. One of required scopes ' \
-                 "(#{REQUIRED_SCOPES.join(', ')}) is missing."
+                 "(#{Github::REQUIRED_SCOPES.join(', ')}) is missing."
         end
         destroy_existing_github_user(github_user)
         user = slack_user
@@ -62,10 +62,6 @@ module Slack
           u.destroy!
           'Cleared GitHub identity and access token.'
         end
-      end
-
-      def fetch_user!(token)
-        Github::Operations::FetchUser.new(token).execute!
       end
 
       def destroy_existing_github_user(github_user)

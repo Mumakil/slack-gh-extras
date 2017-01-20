@@ -30,7 +30,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
 
   describe '#process!' do
 
-    context 'with clear action' do
+    context 'clear action' do
 
       let!(:existing_user) do
         FactoryGirl.create(:user, :with_slack_data, :with_github_data)
@@ -55,7 +55,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
       end
     end
 
-    context 'with set action' do
+    context 'set action' do
 
       let(:github_token) { 'new_github_token' }
       let(:github_id) { 100_000 + Random.rand(100_000) }
