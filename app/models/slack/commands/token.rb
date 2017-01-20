@@ -11,7 +11,7 @@ module Slack
 
       validates_each :action do |record, _attr, value|
         unless VALID_ACTIONS.include?(value)
-          record.errors[:base] << "#{value} is not a valid accesstoken action"
+          record.errors[:base] << "#{value} is not a valid token action"
         end
       end
 

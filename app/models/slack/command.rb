@@ -9,7 +9,8 @@ module Slack
     COMMANDS = {
       help: Slack::Commands::Help,
       token: Slack::Commands::Token,
-      whoami: Slack::Commands::Whoami
+      whoami: Slack::Commands::Whoami,
+      repo_list: Slack::Commands::RepoList
     }.with_indifferent_access
     COMMANDS.default = Slack::Command
     COMMANDS.freeze
