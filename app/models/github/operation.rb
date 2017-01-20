@@ -18,4 +18,6 @@ module Github
     end
 
   end
+
+  class ErrUnauthorized < RuntimeError; end
 end

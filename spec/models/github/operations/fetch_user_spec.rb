@@ -22,6 +22,11 @@ RSpec.describe Slack::Commands::Help, type: :model do
 
       before :each do
         stub_request(:get, 'https://api.github.com/user')
+          .with(
+            headers: {
+              'Authorization' => 'token valid_access_token'
+            }
+          )
           .to_return(
             status: 200,
             body: github_user_data,
@@ -40,6 +45,32 @@ RSpec.describe Slack::Commands::Help, type: :model do
 
       it 'grabs scopes' do
         expect(subject.scopes).to eq(%w(repo user))
+      end
+    end
+
+    context 'with invalid access token' do
+      subject { Github::Operations::FetchUser.new('invalid_access_token') }
+
+      before :each do
+        stub_request(:get, 'https://api.github.com/user')
+          .with(
+            headers: {
+              'Authorization' => 'token invalid_access_token'
+            }
+          )
+          .to_return(
+            status: 401,
+            body: '{}',
+            headers: {
+              'Content-Type': 'applicatin/json'
+            }
+          )
+      end
+
+      it 'raises correct error' do
+        expect do
+          subject.execute!
+        end.to raise_error(Github::ErrUnauthorized)
       end
     end
   end
