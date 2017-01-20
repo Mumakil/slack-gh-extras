@@ -5,6 +5,6 @@ FactoryGirl.define do
   factory :channel do
     sequence(:name) { |n| "channel-#{n}"}
     sequence(:slack_id, 10_000) { |n| "C#{n}" }
-    default_repositories 'my_default_list'
+    default_repositories { FactoryGirl.create(:repo_list).name }
   end
 end

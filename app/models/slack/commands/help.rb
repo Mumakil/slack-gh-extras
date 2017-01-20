@@ -14,8 +14,11 @@ Here are the commands I know of:
     - `token set <accesstoken>` - set GitHub access token
     - `whoami` - check who you are in GitHub according to your saved access token
     - `repo_lists` - show what repository lists you have
-    - `repo_lists add <list_name> <org/repo1, org/repo2...>` - add repositories to a list
-    - `repo_lists remove <list_name> <org/repo1, org/repo2...>` - remove repositories from a list
+    - `repo_lists add <list_name> <org/repo1> <org/repo2>...` - add repositories to a list
+    - `repo_lists remove <list_name> <org/repo1> <org/repo2>...` - remove repositories from a list
+    - `defaults` - print default repositories for this channel
+    - `defaults set <list_name|org/repo1> <list_name2|org/repo2>...` - set new default set of repositories for this channel
+    - `defaults clear` - clear the defaults for this channel
 
 Note that when referencing repositories, you should always use the full name with organization, eg. `organization/repository-name`.
         eos

@@ -10,7 +10,12 @@ FactoryGirl.define do
 
     trait :with_user do
       sequence(:user_id, 10_000) { |n| "U#{n}" }
-      sequence(:user_name) { |n| "username-#{n}"}
+      sequence(:user_name) { |n| "username-#{n}" }
+    end
+
+    trait :with_channel do
+      sequence(:channel_id, 200_000) { |n| "C#{n}" }
+      sequence(:channel_name) { |n| "channel-name-#{n}"}
     end
 
     initialize_with { Slack::Command.subclass_from_params(attributes) }
