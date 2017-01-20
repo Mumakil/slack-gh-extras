@@ -15,6 +15,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.4'
   gem 'foreman'
+  gem 'webmock'
+  gem 'fuubar'
 end
 
 group :development do
