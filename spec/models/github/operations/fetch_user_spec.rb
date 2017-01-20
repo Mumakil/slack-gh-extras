@@ -15,8 +15,7 @@ RSpec.describe Slack::Commands::Help, type: :model do
         login: login
       )
     end
-    let(:valid_scopes) { 'repo' }
-    let(:invalid_scopes) { '' }
+    let(:scopes) { 'repo,user' }
 
     context 'with valid access token' do
       subject { Github::Operations::FetchUser.new('valid_access_token').execute! }
@@ -27,7 +26,7 @@ RSpec.describe Slack::Commands::Help, type: :model do
             status: 200,
             body: github_user_data,
             headers: {
-              'X-OAuth-Scopes': valid_scopes,
+              'X-OAuth-Scopes': scopes,
               'Content-Type': 'applicatin/json'
             }
           )
@@ -38,8 +37,9 @@ RSpec.describe Slack::Commands::Help, type: :model do
         expect(subject.user.login).to eq(login)
         expect(subject.user.id).to eq(id)
       end
+
       it 'grabs scopes' do
-        expect(subject.scopes).to eq(%w(repo))
+        expect(subject.scopes).to eq(%w(repo user))
       end
     end
   end
