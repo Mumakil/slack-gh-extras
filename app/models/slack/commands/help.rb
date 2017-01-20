@@ -8,8 +8,9 @@ module Slack
 
       def process!
         <<-eos
-          Here are the commands I know of:
-          help - print this help
+Here are the commands I know of:
+    - help - print this help
+    - accesstoken <access token>|clear - set or clear GitHub access token
         eos
       end
 

@@ -16,7 +16,7 @@ RSpec.describe 'slack', type: :request do
       expect(response.body).to include('Token is invalid')
       expect(response.body).to include('Team domain is not allowed')
       expect(response.body).to include('Command is not allowed')
-      expect(response.body).to include("'' is not a known subcommand.")
+      expect(response.body).to include('`` is not a known subcommand.')
     end
 
     it 'succeeds with help command' do

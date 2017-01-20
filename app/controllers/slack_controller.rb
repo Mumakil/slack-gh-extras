@@ -10,7 +10,9 @@ class SlackController < ApplicationController
       res = command.process!
       render status: 200, plain: res
     else
-      render status: 400, plain: command.errors.full_messages.join('\n')
+      render status: 400,
+             plain: "There was a validation error with the command: \n" \
+                    "#{command.errors.full_messages.join("\n")}"
     end
   end
 

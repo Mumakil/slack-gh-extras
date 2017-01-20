@@ -23,7 +23,9 @@ RSpec.describe Slack::Command, type: :model do
           text: 'help'
         )
       ).to be_valid
-      # make sure default factory is valid
+    end
+
+    it 'has valid default factory' do
       expect(FactoryGirl.build(:slack_command)).to be_valid
     end
   end

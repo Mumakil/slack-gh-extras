@@ -36,8 +36,8 @@ module Slack
     validates_each :subcommand do |record, _attr, value|
       unless COMMANDS.key?(value)
         record.errors[:base] <<
-          "'#{value}' is not a known subcommand. " \
-          "Type `/#{Slack::Configuration.command} help` to see command help."
+          "`#{value}` is not a known subcommand. " \
+          "Type `#{Slack::Configuration.command} help` to see command help."
       end
     end
 
