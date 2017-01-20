@@ -14,6 +14,9 @@ class SlackController < ApplicationController
              plain: "There was a validation error with the command: \n" \
                     "#{command.errors.full_messages.join("\n")}"
     end
+  rescue e
+    render status: 500,
+           plain: "There was an error processing your command: \n#{e.message}"
   end
 
   private
