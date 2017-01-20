@@ -9,4 +9,13 @@ class User < ApplicationRecord
 
   validates :slack_id, presence: true
   validates :slack_handle, presence: true
+
+  def self.from_slack_payload(payload)
+    payload = payload.with_indifferent_access
+    User.new(
+      slack_id: payload[:user_id],
+      slack_handle: payload[:user_name]
+    )
+  end
+
 end
