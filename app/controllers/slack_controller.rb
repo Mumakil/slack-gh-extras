@@ -22,7 +22,9 @@ class SlackController < ApplicationController
   private
 
   def command_params
-    params.permit(:token, :team_domain, :channel_name, :user_id, :user_name,
+    params.permit(:token, :team_domain,
+                  :channel_name, :channel_id,
+                  :user_id, :user_name,
                   :command, :text, :response_url)
   end
 end

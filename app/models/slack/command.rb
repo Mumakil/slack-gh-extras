@@ -15,7 +15,9 @@ module Slack
     COMMANDS.default = Slack::Command
     COMMANDS.freeze
 
-    attr_accessor :token, :team_domain, :channel_name, :user_id, :user_name,
+    attr_accessor :token, :team_domain,
+                  :channel_name, :channel_id,
+                  :user_id, :user_name,
                   :command, :text, :response_url
 
     validates_each :token do |record, attr, value|
@@ -75,6 +77,10 @@ module Slack
 
     def slack_user
       User.find_by_slack_id(user_id)
+    end
+
+    def slack_channel
+      Channel.find_by_slack_id(channel_id)
     end
 
   end
