@@ -18,4 +18,11 @@ class User < ApplicationRecord
     )
   end
 
+  def self.find_or_initialize_by_slack_payload(payload)
+    payload = payload.with_indifferent_access
+    u = find_by_slack_id(payload[:user_id])
+    u = from_slack_payload(payload) if u.nil?
+    u
+  end
+
 end
