@@ -51,6 +51,12 @@ module Slack
           default_repositories: default_repos
         )
         channel.save!
+        unless in_private_chat?
+          SlackNotifierJob.perform_later(
+            response_url,
+            "#{user_name} set default repositories for this channel to `#{channel.default_repositories}`."
+          )
+        end
         "Setting `#{channel.default_repositories}` repositories and/or " \
         'lists as default for this channel.'
       end
@@ -61,6 +67,12 @@ module Slack
           'No default repositories for this channel.'
         else
           channel.destroy!
+          unless in_private_chat?
+            SlackNotifierJob.perform_later(
+              response_url,
+              "#{user_name} cleared default repositories for this channel."
+            )
+          end
           'Cleared default repositories for this channel.'
         end
       end

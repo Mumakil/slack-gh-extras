@@ -84,6 +84,10 @@ module Slack
       Channel.find_by_slack_id(channel_id)
     end
 
+    def in_private_chat?
+      channel_id.start_with?('D')
+    end
+
   end
 
 end

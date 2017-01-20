@@ -91,6 +91,12 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
           end.to change(Channel, :count).by(-1)
           expect(Channel.find_by_id(channel.id)).to be_nil
         end
+
+        it 'notifies channel' do
+          expect do
+            subject.process!
+          end.to have_enqueued_job(SlackNotifierJob)
+        end
       end
     end
 
@@ -105,9 +111,16 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
             text: 'defaults set foobar org/myrepo'
           )
         end
+
         it 'updates channel defaults' do
           subject.process!
           expect(channel.reload.default_repositories).to eq('foobar org/myrepo')
+        end
+
+        it 'notifies channel' do
+          expect do
+            subject.process!
+          end.to have_enqueued_job(SlackNotifierJob)
         end
       end
 
@@ -126,6 +139,11 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
           end.to change(Channel, :count).by(1)
         end
 
+        it 'notifies channel' do
+          expect do
+            subject.process!
+          end.to have_enqueued_job(SlackNotifierJob)
+        end
       end
     end
   end
