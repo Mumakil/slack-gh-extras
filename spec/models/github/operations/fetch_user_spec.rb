@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'slack_helper'
 
-RSpec.describe Slack::Commands::Help, type: :model do
+RSpec.describe Github::Operations::FetchUser, type: :model do
 
   describe '#execute!' do
 
