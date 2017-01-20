@@ -73,7 +73,7 @@ module Slack
     end
 
     def slack_user
-      User.find_or_initialize_by_slack_payload(as_json)
+      User.find_by_slack_id(user_id)
     end
 
   end

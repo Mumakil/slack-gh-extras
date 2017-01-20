@@ -42,7 +42,7 @@ module Slack
                  "(#{Github::REQUIRED_SCOPES.join(', ')}) is missing."
         end
         destroy_existing_github_user(github_user)
-        user = slack_user
+        user = User.find_or_initialize_by_slack_payload(as_json)
         user.assign_attributes(
           github_id: github_user[:id],
           github_handle: github_user[:login],
@@ -56,7 +56,7 @@ module Slack
 
       def process_clear_action!
         u = slack_user
-        if u.new_record?
+        if u.nil?
           'No saved data present.'
         else
           u.destroy!
