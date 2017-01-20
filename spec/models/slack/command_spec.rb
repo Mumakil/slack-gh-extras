@@ -51,8 +51,8 @@ RSpec.describe Slack::Command, type: :model do
 
     it 'knows repo_list command' do
       expect(
-        Slack::Command.subclass_from_params(text: 'repo_list')
-      ).to be_instance_of(Slack::Commands::RepoList)
+        Slack::Command.subclass_from_params(text: 'repo_lists')
+      ).to be_instance_of(Slack::Commands::RepoLists)
     end
 
     it 'returns default class if unknown' do

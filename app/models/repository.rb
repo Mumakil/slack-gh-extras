@@ -13,4 +13,8 @@ class Repository < ApplicationRecord
     scope: :repo_list_id,
     message: 'is already part of list'
   }
+
+  def url
+    "https://github.com/#{name}"
+  end
 end
