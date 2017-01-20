@@ -7,7 +7,8 @@ module Slack
     include ActiveModel::Model
 
     COMMANDS = {
-      help: Slack::Commands::Help
+      help: Slack::Commands::Help,
+      token: Slack::Commands::Token
     }.with_indifferent_access
     COMMANDS.default = Slack::Command
     COMMANDS.freeze
@@ -50,12 +51,28 @@ module Slack
       if text.blank?
         ''
       else
-        text.split(/\s+/).first
+        text.strip.split(/\s+/).first
       end
+    end
+
+    def text=(new_text)
+      @text = new_text.strip
     end
 
     def subcommand
       self.class.parse_subcommand(text)
+    end
+
+    def arguments
+      text[subcommand.length..-1].strip
+    end
+
+    def tokenized_arguments
+      arguments.split(/\s+/)
+    end
+
+    def slack_user
+      User.find_or_initialize_by_slack_payload(as_json)
     end
 
   end

@@ -10,7 +10,8 @@ module Slack
         <<-eos
 Here are the commands I know of:
     - help - print this help
-    - accesstoken <access token>|clear - set or clear GitHub access token
+    - token clear - clear GitHub access token
+    - token set <accesstoken> - set GitHub access token
         eos
       end
 
