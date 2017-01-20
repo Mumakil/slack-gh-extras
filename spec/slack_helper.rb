@@ -4,7 +4,7 @@ require 'base64'
 require 'digest'
 
 def slack_test_configuration!
-  Slack::Configuration.command = 'github'
+  Slack::Configuration.command = '/github'
   Slack::Configuration.command_token = FactoryGirl.generate(:token)
   Slack::Configuration.team_domain = FactoryGirl.generate(:domain)
   Slack::Configuration.webhook_url = FactoryGirl.generate(:webhook_url)
