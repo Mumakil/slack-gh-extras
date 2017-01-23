@@ -5,12 +5,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+ruby '2.4.0'
+
 gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'octokit', '~> 4.0'
 gem 'sucker_punch'
 gem 'slack-notifier'
+gem 'rack-timeout'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -26,3 +29,5 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+gem 'rails_12factor', group: :production
