@@ -13,8 +13,8 @@ module Github
         @user = client.user
         @scopes = client.last_response.headers['x-oauth-scopes'].split(',')
         self
-      rescue Octokit::Unauthorized
-        raise Github::ErrUnauthorized
+      rescue Octokit::ClientError => e
+        raise Github::Error, e
       end
     end
   end

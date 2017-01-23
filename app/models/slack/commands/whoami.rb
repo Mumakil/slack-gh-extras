@@ -18,7 +18,7 @@ module Slack
                  "You'll need to set new access token."
         end
         "You are `#{user.github_handle}` in GitHub and your access token seems to be ok."
-      rescue Github::ErrUnauthorized
+      rescue Github::Error
         user.destroy!
         "Your access token seems to be invalid. You'll need to set new access token."
       end

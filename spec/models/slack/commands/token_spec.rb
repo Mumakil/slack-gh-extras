@@ -125,7 +125,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
 
         it 'fails gracefully when accesstoken is invalid' do
           allow(subject).to receive(:fetch_user!).with(github_token) do
-            raise ::Github::ErrUnauthorized
+            raise Github::Error
           end
           expect do
             res = subject.process!

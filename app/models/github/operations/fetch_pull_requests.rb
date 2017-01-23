@@ -7,20 +7,34 @@ module Github
     # Fetches pull requests for a repo
     class FetchPullRequests < Github::Operation
 
-      attr_reader :pull_requests, :repository_name
+      attr_reader :pull_requests, :names, :repositories, :failed_repositories
 
-      def initialize(token, repository_name)
+      def initialize(token, names)
         super(token)
-        @repository_name = repository_name
+        @names = names
+        @repositories = []
+        @failed_repositories = []
       end
 
       def execute!
-        client.pull_requests(repository_name, state: 'open')
+        repositories.each do |repository|
+          fetch_one(repository)
+        end
         self
-      rescue Octokit::Unauthorized
-        raise Github::ErrUnauthorized
-      rescue Octokit::NotFound
-        raise Github::ErrNotFound
+      end
+
+      def pull_requests
+        @pull_requests.sort_by(&:created_at)
+      end
+
+      def failed_repositories?
+        !failed_repositories.empty?
+      end
+
+      def fetch_one(repository_name)
+        @repositories << client.pull_requests(repository_name, state: 'open')
+      rescue Octokit::ClientError
+        @failed_repositories << repository_name
       end
     end
   end

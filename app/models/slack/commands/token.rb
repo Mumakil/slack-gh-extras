@@ -50,7 +50,7 @@ module Slack
         )
         user.save!
         "Access token saved! You are `#{user.github_handle}` in GitHub."
-      rescue Github::ErrUnauthorized
+      rescue Github::Error
         'Setting token failed. Your access token seems to be invalid.'
       end
 

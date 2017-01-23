@@ -70,7 +70,7 @@ RSpec.describe Github::Operations::FetchUser, type: :model do
       it 'raises correct error' do
         expect do
           subject.execute!
-        end.to raise_error(Github::ErrUnauthorized)
+        end.to raise_error(Github::Error)
       end
     end
   end
