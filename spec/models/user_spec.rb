@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
 
   describe '::from_slack_payload' do
     it 'can create user from slack command data' do
-      payload = FactoryGirl.build(:slack_command, :with_user)
+      payload = FactoryGirl.build(:slack_command)
       user = User.from_slack_payload(payload.as_json)
       expect(user.slack_id).to eq(payload.user_id)
       expect(user.slack_handle).to eq(payload.user_name)
@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
   describe '::find_or_initialize_by_slack_payload' do
 
     context 'without existing user' do
-      let(:payload) { FactoryGirl.build(:slack_command, :with_user) }
+      let(:payload) { FactoryGirl.build(:slack_command) }
       subject { User.find_or_initialize_by_slack_payload(payload.as_json) }
 
       it { is_expected.to be_new_record }

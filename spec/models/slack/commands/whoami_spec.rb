@@ -14,7 +14,6 @@ RSpec.describe Slack::Commands::Whoami, type: :model do
     subject do
       FactoryGirl.build(
         :slack_command,
-        :with_user,
         text: 'whoami'
       )
     end

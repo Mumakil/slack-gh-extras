@@ -128,7 +128,6 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
         subject do
           FactoryGirl.build(
             :slack_command,
-            :with_channel,
             text: 'default set foobar org/myrepo'
           )
         end

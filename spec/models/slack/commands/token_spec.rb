@@ -64,7 +64,6 @@ RSpec.describe Slack::Commands::Token, type: :model do
       subject do
         FactoryGirl.build(
           :slack_command,
-          :with_user,
           text: "token set #{github_token}"
         )
       end
