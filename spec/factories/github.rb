@@ -48,7 +48,11 @@ FactoryGirl.define do
   factory :github_pulls_operation, class: Github::Operations::FetchPullRequests do
     transient do
       token { generate(:github_token) }
-      names { build_list(:repository_name, 5) }
+      names { generate_list(:repository_name, 5) }
+    end
+
+    trait :with_response do
+
     end
 
     initialize_with { new(token, names) }
