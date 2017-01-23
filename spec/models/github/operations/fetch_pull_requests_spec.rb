@@ -7,7 +7,12 @@ RSpec.describe Github::Operations::FetchPullRequests, type: :model do
 
   describe '#execute!' do
 
-    subject { FactoryGirl.build(:github_pulls_operation) }
+    subject do
+      FactoryGirl.build(
+        :github_pulls_operation,
+        names: generate_list(:repository_name, 5)
+      )
+    end
 
     context 'with valid access token' do
 
