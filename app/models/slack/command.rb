@@ -11,7 +11,8 @@ module Slack
       token: Slack::Commands::Token,
       whoami: Slack::Commands::Whoami,
       repo_lists: Slack::Commands::RepoLists,
-      defaults: Slack::Commands::Defaults
+      defaults: Slack::Commands::Defaults,
+      pulls: Slack::Commands::Pulls
     }.with_indifferent_access
     COMMANDS.default = Slack::Command
     COMMANDS.freeze

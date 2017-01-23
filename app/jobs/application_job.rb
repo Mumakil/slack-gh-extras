@@ -8,4 +8,8 @@ class ApplicationJob < ActiveJob::Base
   def with_connection_pool
     ActiveRecord::Base.connection_pool.with_connection(&block)
   end
+
+  def slack_notifier(url)
+    Slack::Notifier.new(url)
+  end
 end

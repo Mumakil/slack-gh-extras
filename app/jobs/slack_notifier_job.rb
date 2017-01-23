@@ -7,10 +7,6 @@ require 'slack-notifier'
 class SlackNotifierJob < ApplicationJob
 
   def perform(url, message)
-    notifier(url).post(text: message, response_type: 'in_channel')
-  end
-
-  def notifier(url)
-    Slack::Notifier.new(url)
+    slack_notifier(url).post(text: message, response_type: 'in_channel')
   end
 end
