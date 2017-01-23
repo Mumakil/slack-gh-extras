@@ -51,19 +51,19 @@ RSpec.describe Slack::Command, type: :model do
 
     it 'knows repo_list command' do
       expect(
-        Slack::Command.subclass_from_params(text: 'repo_lists')
+        Slack::Command.subclass_from_params(text: 'list')
       ).to be_instance_of(Slack::Commands::RepoLists)
     end
 
     it 'knows defaults command' do
       expect(
-        Slack::Command.subclass_from_params(text: 'defaults')
+        Slack::Command.subclass_from_params(text: 'default')
       ).to be_instance_of(Slack::Commands::Defaults)
     end
 
     it 'knows pulls command' do
       expect(
-        Slack::Command.subclass_from_params(text: 'pulls')
+        Slack::Command.subclass_from_params(text: 'prs')
       ).to be_instance_of(Slack::Commands::Pulls)
     end
 

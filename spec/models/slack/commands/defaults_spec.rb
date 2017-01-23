@@ -12,25 +12,25 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
   describe 'validations' do
     it 'works with set action' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'defaults set listname repo1')
+        FactoryGirl.build(:slack_command, text: 'default set listname repo1')
       ).to be_valid
     end
 
     it 'works with clear action' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'defaults clear')
+        FactoryGirl.build(:slack_command, text: 'default clear')
       ).to be_valid
     end
 
     it 'works without action' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'defaults')
+        FactoryGirl.build(:slack_command, text: 'default')
       ).to be_valid
     end
 
     it 'fails others' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'defaults foobar')
+        FactoryGirl.build(:slack_command, text: 'default foobar')
       ).not_to be_valid
     end
   end
@@ -38,26 +38,26 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
   describe '#process!' do
 
     describe 'listing' do
-      context 'without defaults' do
-        subject { FactoryGirl.build(:slack_command, text: 'defaults') }
+      context 'without default' do
+        subject { FactoryGirl.build(:slack_command, text: 'default') }
 
         it 'does mostly nothing' do
           expect(subject.process!).to match('No default repositories')
         end
       end
 
-      context 'with existing defaults' do
+      context 'with existing default' do
         let!(:channel) { FactoryGirl.create(:channel) }
         subject do
           FactoryGirl.build(
             :slack_command,
             channel_id: channel.slack_id,
             channel_name: channel.name,
-            text: 'defaults'
+            text: 'default'
           )
         end
 
-        it 'prints out defaults' do
+        it 'prints out default' do
           res = subject.process!
           expect(res).to match('Default repositories for this channel')
           expect(res).to match(channel.default_repositories)
@@ -66,22 +66,22 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
     end
 
     describe 'clearing' do
-      context 'without existing defaults' do
-        subject { FactoryGirl.build(:slack_command, text: 'defaults clear') }
+      context 'without existing default' do
+        subject { FactoryGirl.build(:slack_command, text: 'default clear') }
 
         it 'does nothing' do
           expect(subject.process!).to match('No default repositories')
         end
       end
 
-      context 'with existing defaults' do
+      context 'with existing default' do
         let!(:channel) { FactoryGirl.create(:channel) }
         subject do
           FactoryGirl.build(
             :slack_command,
             channel_id: channel.slack_id,
             channel_name: channel.name,
-            text: 'defaults clear'
+            text: 'default clear'
           )
         end
 
@@ -108,11 +108,11 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
             :slack_command,
             channel_id: channel.slack_id,
             channel_name: channel.name,
-            text: 'defaults set foobar org/myrepo'
+            text: 'default set foobar org/myrepo'
           )
         end
 
-        it 'updates channel defaults' do
+        it 'updates channel default' do
           subject.process!
           expect(channel.reload.default_repositories).to eq('foobar org/myrepo')
         end
@@ -129,7 +129,7 @@ RSpec.describe Slack::Commands::Defaults, type: :model do
           FactoryGirl.build(
             :slack_command,
             :with_channel,
-            text: 'defaults set foobar org/myrepo'
+            text: 'default set foobar org/myrepo'
           )
         end
 

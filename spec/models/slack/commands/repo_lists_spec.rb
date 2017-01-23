@@ -12,25 +12,25 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
   describe 'validations' do
     it 'works with add action' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'repo_lists add listname repo1')
+        FactoryGirl.build(:slack_command, text: 'list add listname repo1')
       ).to be_valid
     end
 
     it 'works with remove action' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'repo_lists remove listname repo1')
+        FactoryGirl.build(:slack_command, text: 'list remove listname repo1')
       ).to be_valid
     end
 
     it 'works without action' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'repo_lists')
+        FactoryGirl.build(:slack_command, text: 'list')
       ).to be_valid
     end
 
     it 'fails others' do
       expect(
-        FactoryGirl.build(:slack_command, text: 'repo_lists foobar')
+        FactoryGirl.build(:slack_command, text: 'list foobar')
       ).not_to be_valid
     end
   end
@@ -39,7 +39,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
 
     describe 'listing' do
 
-      subject { FactoryGirl.build(:slack_command, text: 'repo_lists') }
+      subject { FactoryGirl.build(:slack_command, text: 'list') }
 
       context 'without existing lists' do
         it 'does mostly nothing' do
@@ -63,7 +63,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
         subject do
           FactoryGirl.build(
             :slack_command,
-            text: 'repo_lists add newlist org/repo1 org/repo2 foobar'
+            text: 'list add newlist org/repo1 org/repo2 foobar'
           )
         end
 
@@ -93,7 +93,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
         subject do
           FactoryGirl.build(
             :slack_command,
-            text: "repo_lists add #{list.name} #{existing_repo.name} neworg/name1 otherord/name2"
+            text: "list add #{list.name} #{existing_repo.name} neworg/name1 otherord/name2"
           )
         end
 
@@ -123,7 +123,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
         subject do
           FactoryGirl.build(
             :slack_command,
-            text: 'repo_lists remove foobar org/repo'
+            text: 'list remove foobar org/repo'
           )
         end
 
@@ -140,7 +140,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
           subject do
             FactoryGirl.build(
               :slack_command,
-              text: "repo_lists remove #{list.name} #{list.repositories.map(&:name).join(' ')}"
+              text: "list remove #{list.name} #{list.repositories.map(&:name).join(' ')}"
             )
           end
 
@@ -165,7 +165,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
           subject do
             FactoryGirl.build(
               :slack_command,
-              text: "repo_lists remove #{list.name} foobar #{list.repositories.first.name}"
+              text: "list remove #{list.name} foobar #{list.repositories.first.name}"
             )
           end
 

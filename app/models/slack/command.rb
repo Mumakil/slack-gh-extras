@@ -10,9 +10,9 @@ module Slack
       help: Slack::Commands::Help,
       token: Slack::Commands::Token,
       whoami: Slack::Commands::Whoami,
-      repo_lists: Slack::Commands::RepoLists,
-      defaults: Slack::Commands::Defaults,
-      pulls: Slack::Commands::Pulls
+      list: Slack::Commands::RepoLists,
+      default: Slack::Commands::Defaults,
+      prs: Slack::Commands::Pulls
     }.with_indifferent_access
     COMMANDS.default = Slack::Command
     COMMANDS.freeze
