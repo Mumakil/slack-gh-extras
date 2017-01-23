@@ -17,9 +17,7 @@ class PullRequesteJob < ApplicationJob
     pull_requests = operation.pull_requests
     title = "Here are the open pull requests in `#{original_query}`"
     pulls = if pull_requests.empty?
-              {
-                text: 'There were no open pull requests.'
-              }
+              { text: 'There were no open pull requests.' }
             else
               {
                 text: format_pull_requests(pull_requests),
@@ -27,10 +25,9 @@ class PullRequesteJob < ApplicationJob
               }
             end
     error = if operation.failed_repositories?
-              {
-                text: 'However, there was an error fetching these repositories' \
+              text = 'However, there was an error fetching these repositories' \
                       "    - `#{operation.failed.join('\n    - ')}`"
-              }
+              { text: text }
             end
     slack_notifier(slack_url).post(
       text: title,
