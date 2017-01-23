@@ -6,7 +6,9 @@ class ApplicationJob < ActiveJob::Base
   include SuckerPunch::Job
 
   def with_connection_pool
-    ActiveRecord::Base.connection_pool.with_connection(&block)
+    ActiveRecord::Base.connection_pool.with_connection do
+      return yield
+    end
   end
 
   def slack_notifier(url)
