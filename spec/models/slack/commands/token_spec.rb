@@ -61,6 +61,16 @@ RSpec.describe Slack::Commands::Token, type: :model do
       let(:github_id) { 100_000 + Random.rand(100_000) }
       let(:github_login) { 'github-login' }
 
+      let(:user_operation) do
+        FactoryGirl.build(
+          :github_user_operation,
+          :with_response,
+          github_id: github_id,
+          github_handle: github_login,
+          scopes: %w(repo)
+        )
+      end
+
       subject do
         FactoryGirl.build(
           :slack_command,
@@ -72,14 +82,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
 
         before :each do
           allow(subject).to receive(:fetch_user!).with(github_token) do
-            operation = Github::Operations::FetchUser.new(github_token)
-            operation.instance_variable_set(
-              :@user,
-              id: github_id,
-              login: github_login
-            )
-            operation.instance_variable_set(:@scopes, %w(repo))
-            operation
+            user_operation
           end
         end
 
@@ -132,11 +135,9 @@ RSpec.describe Slack::Commands::Token, type: :model do
         end
 
         it 'fails gracefully when scopes are not enough' do
+          user_operation.scopes = []
           allow(subject).to receive(:fetch_user!).with(github_token) do
-            operation = Github::Operations::FetchUser.new(github_token)
-            operation.instance_variable_set(:@user, {})
-            operation.instance_variable_set(:@scopes, [])
-            operation
+            user_operation
           end
           expect do
             res = subject.process!

@@ -6,14 +6,14 @@ module Github
   # Operation is a superclass of all GitHub operations
   class Operation
 
-    attr_reader :accesstoken
+    attr_reader :token
 
-    def initialize(accesstoken)
-      @accesstoken = accesstoken
+    def initialize(token)
+      @token = token
     end
 
     def client
-      @client ||= Octokit::Client.new(access_token: accesstoken)
+      @client ||= Octokit::Client.new(access_token: token)
       @client
     end
   end

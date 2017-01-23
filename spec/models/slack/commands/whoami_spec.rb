@@ -27,18 +27,20 @@ RSpec.describe Slack::Commands::Whoami, type: :model do
           slack_handle: subject.user_name
         )
       end
+      let(:user_operation) do
+        FactoryGirl.build(
+          :github_user_operation,
+          :with_response,
+          github_id: user.github_id.to_i,
+          github_handle: user.github_handle,
+          scopes: ['repo']
+        )
+      end
 
       context 'with valid access token' do
         before :each do
           allow(subject).to receive(:fetch_user!).with(user.github_token) do
-            operation = Github::Operations::FetchUser.new(user.github_token)
-            operation.instance_variable_set(
-              :@user,
-              id: user.github_id.to_i,
-              login: user.github_handle
-            )
-            operation.instance_variable_set(:@scopes, %w(repo))
-            operation
+            user_operation
           end
         end
 
@@ -59,15 +61,9 @@ RSpec.describe Slack::Commands::Whoami, type: :model do
         end
 
         it 'deletes user from db when access token scopes are not enough' do
+          user_operation.scopes = []
           allow(subject).to receive(:fetch_user!).with(user.github_token) do
-            operation = Github::Operations::FetchUser.new(user.github_token)
-            operation.instance_variable_set(
-              :@user,
-              id: user.github_id.to_i,
-              login: user.github_handle
-            )
-            operation.instance_variable_set(:@scopes, %w())
-            operation
+            user_operation
           end
           expect do
             res = subject.process!

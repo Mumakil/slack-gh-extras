@@ -44,8 +44,8 @@ module Slack
         destroy_existing_github_user(github_user)
         user = User.find_or_initialize_by_slack_payload(as_json)
         user.assign_attributes(
-          github_id: github_user[:id],
-          github_handle: github_user[:login],
+          github_id: github_user.id,
+          github_handle: github_user.login,
           github_token: github_token
         )
         user.save!
@@ -65,7 +65,7 @@ module Slack
       end
 
       def destroy_existing_github_user(github_user)
-        user = User.find_by_github_id(github_user[:id])
+        user = User.find_by_github_id(github_user.id)
         user&.destroy!
       end
     end

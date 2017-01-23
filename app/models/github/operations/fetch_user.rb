@@ -7,7 +7,7 @@ module Github
     # Fetch user fetches the current user data from github
     class FetchUser < Github::Operation
 
-      attr_reader :scopes, :user
+      attr_accessor :scopes, :user
 
       def execute!
         @user = client.user

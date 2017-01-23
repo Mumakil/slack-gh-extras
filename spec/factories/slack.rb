@@ -7,7 +7,7 @@ FactoryGirl.define do
     team_domain { Slack::Configuration.team_domain }
     command { Slack::Configuration.command }
     text 'help'
-    response_url { FactoryGirl.generate(:webhook_url) }
+    response_url { generate(:webhook_url) }
 
     sequence(:user_id, 10_000) { |n| "U#{n}" }
     sequence(:user_name) { |n| "username-#{n}" }

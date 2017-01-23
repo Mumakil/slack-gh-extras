@@ -16,15 +16,15 @@ RSpec.describe Github::Operations::FetchUser, type: :model do
       )
     end
     let(:scopes) { 'repo,user' }
+    subject { FactoryGirl.build(:github_user_operation) }
 
     context 'with valid access token' do
-      subject { Github::Operations::FetchUser.new('valid_access_token').execute! }
 
       before :each do
         stub_request(:get, 'https://api.github.com/user')
           .with(
             headers: {
-              'Authorization' => 'token valid_access_token'
+              'Authorization' => "token #{subject.token}"
             }
           )
           .to_return(
@@ -32,9 +32,10 @@ RSpec.describe Github::Operations::FetchUser, type: :model do
             body: github_user_data,
             headers: {
               'X-OAuth-Scopes': scopes,
-              'Content-Type': 'applicatin/json'
+              'Content-Type': 'application/json'
             }
           )
+        subject.execute!
       end
 
       it 'fetches user' do
@@ -49,20 +50,19 @@ RSpec.describe Github::Operations::FetchUser, type: :model do
     end
 
     context 'with invalid access token' do
-      subject { Github::Operations::FetchUser.new('invalid_access_token') }
 
       before :each do
         stub_request(:get, 'https://api.github.com/user')
           .with(
             headers: {
-              'Authorization' => 'token invalid_access_token'
+              'Authorization' => "token #{subject.token}"
             }
           )
           .to_return(
             status: 401,
             body: '{}',
             headers: {
-              'Content-Type': 'applicatin/json'
+              'Content-Type': 'application/json'
             }
           )
       end

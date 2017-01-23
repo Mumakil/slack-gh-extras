@@ -7,7 +7,7 @@ module Github
     # Fetches pull requests for a repo
     class FetchPullRequests < Github::Operation
 
-      attr_reader :pull_requests, :names, :failed_repositories
+      attr_accessor :pull_requests, :names, :failed_repositories
 
       def initialize(token, names)
         super(token)
