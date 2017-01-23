@@ -13,7 +13,7 @@ FactoryGirl.define do
     sequence(:user_name) { |n| "username-#{n}" }
 
     sequence(:channel_id, 200_000) { |n| "C#{n}" }
-    sequence(:channel_name) { |n| "channel-name-#{n}"}
+    sequence(:channel_name) { |n| "channel-name-#{n}" }
 
     initialize_with { Slack::Command.subclass_from_params(attributes) }
   end

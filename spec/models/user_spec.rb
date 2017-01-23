@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it 'is possible to save users' do
     expect do
-      FactoryGirl.build(:user, :with_slack_data, :with_github_data).save!
+      FactoryGirl.build(:user).save!
     end.to change(User, :count).by(1)
   end
 
@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
 
     context 'with existing user' do
       let(:existing_user) do
-        FactoryGirl.create(:user, :with_slack_data, :with_github_data)
+        FactoryGirl.create(:user)
       end
       let(:payload) do
         FactoryGirl.build(

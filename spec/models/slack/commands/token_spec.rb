@@ -33,7 +33,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
     context 'clear action' do
 
       let!(:existing_user) do
-        FactoryGirl.create(:user, :with_slack_data, :with_github_data)
+        FactoryGirl.create(:user)
       end
 
       it 'clears existing user' do
@@ -90,7 +90,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
         end
 
         it 'updates existing user successfully' do
-          u = FactoryGirl.create(:user, :with_slack_data, :with_github_data)
+          u = FactoryGirl.create(:user)
           subject.user_id = u.slack_id
           subject.user_name = u.slack_handle
           expect do
@@ -106,7 +106,6 @@ RSpec.describe Slack::Commands::Token, type: :model do
         it 'deletes existing github user' do
           u = FactoryGirl.create(
             :user,
-            :with_slack_data,
             github_id: github_id,
             github_handle: github_login,
             github_token: github_token

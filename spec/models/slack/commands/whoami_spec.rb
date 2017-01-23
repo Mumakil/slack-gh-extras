@@ -23,7 +23,6 @@ RSpec.describe Slack::Commands::Whoami, type: :model do
       let!(:user) do
         FactoryGirl.create(
           :user,
-          :with_github_data,
           slack_id: subject.user_id,
           slack_handle: subject.user_name
         )
