@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'action_view/helpers/date_helper'
 require 'slack-notifier'
 
 ##
@@ -16,14 +17,7 @@ class PullRequesteJob < ApplicationJob
     operation = fetch_repo_operation(user.github_token, repositories)
     pull_requests = operation.pull_requests
     title = "Here are the open pull requests in `#{original_query}`"
-    pulls = if pull_requests.empty?
-              { text: 'There were no open pull requests.' }
-            else
-              {
-                text: format_pull_requests(pull_requests),
-                mrkdwn_in: ['text']
-              }
-            end
+    pulls = format_pull_requests(pull_requests)
     error = if operation.failed_repositories?
               text = 'However, there was an error fetching these repositories' \
                       "    - `#{operation.failed.join('\n    - ')}`"
@@ -46,7 +40,14 @@ class PullRequesteJob < ApplicationJob
   end
 
   def format_pull_requests(pull_requests)
-    pull_requests.map { |pr| format_pull_request(pr) }.join('\n')
+    if pull_requests.empty?
+      { text: 'There were no open pull requests.' }
+    else
+      {
+        text: pull_requests.map { |pr| format_pull_request(pr) }.join('\n'),
+        mrkdwn_in: ['text']
+      }
+    end
   end
 
   def format_pull_request(pull_request)
@@ -54,6 +55,6 @@ class PullRequesteJob < ApplicationJob
     formatted = "<#{pull_request.url}|#{repo.full_name}##{pull_request.number}>"
     formatted << " *#{pull_request.title}*"
     formatted << " _by #{pull_request.assignee.login}_"
-    formatted << ", opened #{time_ago_in_words(Date.parse(pull_request.created_at))}"
+    formatted << ", opened #{time_ago_in_words(Date.parse(pull_request.created_at))} ago"
   end
 end
