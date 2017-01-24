@@ -47,12 +47,42 @@ FactoryGirl.define do
 
   factory :github_pulls_operation, class: Github::Operations::FetchPullRequests do
     transient do
+      repository_count 5
       token { generate(:github_token) }
-      names { generate_list(:repository_name, 5) }
+      names { generate_list(:repository_name, repository_count) }
     end
 
     trait :with_response do
+      transient do
+        failed_count 0
+      end
 
+      pull_requests do
+        pr = 0
+        Sawyer::Resource.new(
+          build(:sawyer_agent),
+          names.first(names.length - failed_count).map do |repo|
+            number = (pr += 1)
+            [{
+              number: number,
+              title: "pr title #{number}",
+              created_at: number.days.ago,
+              url: "https://github.com/#{repo}/pulls/#{number}",
+              user: {
+                login: "author #{number}"
+              },
+              base: {
+                repo: {
+                  full_name: repo
+                }
+              },
+              _links: { self: { href: '/' } }
+            }]
+          end.flatten.sort_by(:created_at)
+        )
+      end
+
+      failed_repositories { names.last(failed_count) }
     end
 
     initialize_with { new(token, names) }

@@ -7,7 +7,7 @@ module Slack
     class Pulls < Slack::Command
 
       def repository_list
-        repos = tokenized_arguments
+        repos = tokenized_arguments.dup
         if repos.empty?
           channel = slack_channel
           unless channel.nil?

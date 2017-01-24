@@ -3,7 +3,7 @@
 FactoryGirl.define do
 
   factory :repo_list do
-    sequence(:name) { |n| "repo-list-#{n}"}
+    sequence(:name) { |n| "repo-list-#{n}" }
 
     trait :with_repositories do
       transient do

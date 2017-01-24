@@ -39,8 +39,8 @@ class PullRequestsJob < ApplicationJob
     )
   end
 
-  def fetch_repo_operation(token, repo_name)
-    Github::Operations::FetchPullRequests.new(token, repo_name).execute!
+  def fetch_repo_operation(token, repo_names)
+    Github::Operations::FetchPullRequests.new(token, repo_names).execute!
   end
 
   def format_pull_requests(pull_requests)
