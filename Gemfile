@@ -22,6 +22,7 @@ group :development, :test do
   gem 'foreman'
   gem 'webmock'
   gem 'fuubar'
+  gem 'rubocop'
 end
 
 group :development do
@@ -30,4 +31,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'rails_12factor', group: :production
+group :test do
+  gem 'simplecov', :require => false
+end
+
+group :production do
+  gem 'rails_12factor'
+end
