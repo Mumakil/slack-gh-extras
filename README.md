@@ -1,5 +1,7 @@
 # Slack GitHub extras
 
+[![Build Status](https://travis-ci.org/Mumakil/slack-gh-extras.svg?branch=master)](https://travis-ci.org/Mumakil/slack-gh-extras)
+
 Missing Slack GitHub /commands.
 
 ## Installation
