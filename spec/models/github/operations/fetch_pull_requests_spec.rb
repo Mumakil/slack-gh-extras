@@ -18,12 +18,11 @@ RSpec.describe Github::Operations::FetchPullRequests, type: :model do
 
       let(:responses) do
         pr_number = 0
-        subject.names.reduce({}) do |memo, repo_name|
+        subject.names.each_with_object({}) do |repo_name, memo|
           memo[repo_name] = [
             { number: pr_number += 1, created_at: pr_number.days.ago },
             { number: pr_number += 1, created_at: pr_number.hours.ago }
           ]
-          memo
         end
       end
 
@@ -62,12 +61,11 @@ RSpec.describe Github::Operations::FetchPullRequests, type: :model do
 
       let(:successfull_responses) do
         pr_number = 0
-        subject.names.first(2).reduce({}) do |memo, repo_name|
+        subject.names.first(2).each_with_object({}) do |repo_name, memo|
           memo[repo_name] = [
             { number: pr_number += 1, created_at: pr_number.days.ago },
             { number: pr_number += 1, created_at: pr_number.hours.ago }
           ]
-          memo
         end
       end
 

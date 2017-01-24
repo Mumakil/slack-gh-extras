@@ -13,7 +13,7 @@ class PullRequestsJob < ApplicationJob
     user = with_connection_pool do
       User.find(user_id)
     end
-    operation = fetch_repo_operation(user.github_token, repositories)
+    operation = fetch_repositories_operation(user.github_token, repositories)
     pull_requests = operation.pull_requests
     title = "*All open pull requests (#{pull_requests.size} in total)* in " \
             "`#{original_query.join(' ')}`"
@@ -32,14 +32,15 @@ class PullRequestsJob < ApplicationJob
       attachments: [error].reject(&:nil?),
       response_type: 'in_channel'
     )
-  rescue RuntimeError => e
+  rescue RuntimeError
     slack_notifier(slack_url).post(
-      text: "There was an error when trying to fetch pull requests: #{e.message}",
+      text: 'There was an unexpected error when trying to fetch pull requests. Please try again later.',
+      color: 'danger',
       response_type: 'ephemeral'
     )
   end
 
-  def fetch_repo_operation(token, repo_names)
+  def fetch_repositories_operation(token, repo_names)
     Github::Operations::FetchPullRequests.new(token, repo_names).execute!
   end
 

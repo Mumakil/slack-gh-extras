@@ -101,7 +101,7 @@ RSpec.describe Slack::Commands::Token, type: :model do
           end.not_to change(User, :count)
           u.reload
           expect(u.github_token).to eq(github_token)
-          # TODO investigate why github_id is string, not number
+          # TODO: investigate why github_id is string, not number
           expect(u.github_id.to_i).to equal(github_id)
           expect(u.github_handle).to eq(github_login)
         end

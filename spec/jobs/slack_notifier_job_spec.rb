@@ -11,10 +11,10 @@ RSpec.describe SlackNotifierJob, type: :job do
     stub_request(:post, url)
       .with(
         body: {
-          "payload" => "{\"text\":\"my message\",\"response_type\":\"in_channel\"}"
+          'payload' => '{"text":"my message","response_type":"in_channel"}'
         }
       )
-      .to_return(:status => 200, :body => "", :headers => {})
+      .to_return(status: 200, body: '{}', headers: {})
   end
 
   it 'sends notification' do

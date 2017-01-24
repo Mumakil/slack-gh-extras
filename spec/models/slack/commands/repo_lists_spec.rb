@@ -87,7 +87,7 @@ RSpec.describe Slack::Commands::RepoLists, type: :model do
       end
 
       context 'when the list already exists' do
-        let!(:list) { FactoryGirl.create(:repo_list, :with_repositories)}
+        let!(:list) { FactoryGirl.create(:repo_list, :with_repositories) }
         let(:existing_repo) { list.repositories.first }
 
         subject do

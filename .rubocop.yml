@@ -6,79 +6,36 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: Include.
-# Include: **/Gemfile, **/gems.rb
 Bundler/OrderedGems:
+  Enabled: false
+
+Style/AlignParameters:
   Exclude:
-    - 'Gemfile'
+    - 'bin/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 30
 
 # Offense count: 4
 Metrics/AbcSize:
   Max: 21
 
-# Offense count: 35
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/BlockLength:
-  Max: 153
-
-# Offense count: 52
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 118
-
-# Offense count: 10
-# Configuration parameters: CountComments.
-Metrics/MethodLength:
-  Max: 27
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Style/AlignParameters:
-  Exclude:
-    - 'bin/foreman'
-    - 'bin/rspec'
-    - 'bin/rubocop'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
-Style/CommentAnnotation:
-  Exclude:
-    - 'spec/models/slack/commands/token_spec.rb'
-
-# Offense count: 2
 Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'app/models/application_record.rb'
-    - 'config/application.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/EachWithObject:
-  Exclude:
-    - 'spec/models/github/operations/fetch_pull_requests_spec.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Exclude:
-    - 'config/environments/development.rb'
-    - 'config/environments/production.rb'
-
-# Offense count: 49
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
   Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+  Exclude:
+    - 'config/routes.rb'
+    - 'db/*rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'db/*.rb'
 
 # Offense count: 18
 # Cop supports --auto-correct.
@@ -114,12 +71,12 @@ Style/EmptyLinesAroundModuleBody:
     - 'app/models/github/user_operations.rb'
     - 'app/models/slack/command.rb'
 
-# Offense count: 31
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: when_needed, always, never
 Style/FrozenStringLiteralComment:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: when_needed
+  Exclude:
+    - 'bin/*'
+    - 'db/*.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -133,31 +90,6 @@ Style/HashSyntax:
 # Cop supports --auto-correct.
 Style/NumericLiterals:
   MinDigits: 15
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'app/models/slack/commands/pulls.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Style/SpaceInsideBlockBraces:
-  Exclude:
-    - 'spec/factories/channels.rb'
-    - 'spec/factories/repositories.rb'
-    - 'spec/models/slack/commands/repo_lists_spec.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/SpaceInsideBrackets:
-  Exclude:
-    - 'config/environments/production.rb'
 
 # Offense count: 76
 # Cop supports --auto-correct.
@@ -180,7 +112,7 @@ Style/StringLiterals:
 # Cop supports --auto-correct.
 Style/UnlessElse:
   Exclude:
-    - 'app/models/slack/commands/pulls.rb'
+   # - 'app/models/slack/commands/pulls.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

@@ -3,7 +3,7 @@
 FactoryGirl.define do
 
   factory :repository do
-    sequence(:name) { |n| "organization/repository-#{n}"}
+    sequence(:name) { |n| "organization/repository-#{n}" }
     repo_list
   end
 end

@@ -19,14 +19,14 @@ module Slack
 
       def resolved_repositories
         repository_list.map do |repo_entry|
-          if repo_entry.match?(/\//)
+          if repo_entry.match?(%r{\/})
             repo_entry
           else
             repo_list = RepoList.find_by_name(repo_entry)
-            unless repo_list.nil?
-              repo_list.repositories.pluck(:name)
-            else
+            if repo_list.nil?
               []
+            else
+              repo_list.repositories.pluck(:name)
             end
           end
         end.flatten.reject(&:nil?).uniq
