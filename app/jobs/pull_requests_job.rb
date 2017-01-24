@@ -16,20 +16,21 @@ class PullRequestsJob < ApplicationJob
     operation = fetch_repositories_operation(user.github_token, repositories)
     pull_requests = operation.pull_requests
     title = "*All open pull requests (#{pull_requests.size} in total)* in " \
-            "`#{original_query.join(' ')}`"
+            "`#{original_query.join(' ')}` in response to #{user.slack_handle}'s query'"
     pulls = format_pull_requests(pull_requests)
-    error = if operation.failed_repositories?
-              text = "However, there was an error fetching these repositories:\n" \
-                      "    - `#{operation.failed_repositories.join("`\n    - `")}`"
-              {
-                text: text,
-                color: 'danger',
-                mrkdwn_in: ['text']
-              }
-            end
+    attachments = []
+    if operation.failed_repositories?
+      text = "However, there was an error fetching pull requests for these repositories:\n" \
+              "`#{operation.failed_repositories.join(', ')}`"
+      attachments << {
+        text: text,
+        color: 'warning',
+        mrkdwn_in: ['text']
+      }
+    end
     slack_notifier(slack_url).post(
       text: title + "\n\n" + pulls,
-      attachments: [error].reject(&:nil?),
+      attachments: attachments,
       response_type: 'in_channel'
     )
   rescue RuntimeError
