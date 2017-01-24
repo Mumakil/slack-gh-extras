@@ -59,27 +59,26 @@ FactoryGirl.define do
 
       pull_requests do
         pr = 0
-        Sawyer::Resource.new(
-          build(:sawyer_agent),
-          names.first(names.length - failed_count).map do |repo|
-            number = (pr += 1)
-            [{
-              number: number,
-              title: "pr title #{number}",
-              created_at: number.days.ago,
-              url: "https://github.com/#{repo}/pulls/#{number}",
-              user: {
-                login: "author #{number}"
-              },
-              base: {
-                repo: {
-                  full_name: repo
-                }
-              },
-              _links: { self: { href: '/' } }
-            }]
-          end.flatten.sort_by(:created_at)
-        )
+        agent = build(:sawyer_agent)
+        names.first(names.length - failed_count).map do |repo|
+          number = (pr += 1)
+          Sawyer::Resource.new(
+            agent,
+            number: number,
+            title: "pr title #{number}",
+            created_at: number.days.ago,
+            url: "https://github.com/#{repo}/pulls/#{number}",
+            user: {
+              login: "author #{number}"
+            },
+            base: {
+              repo: {
+                full_name: repo
+              }
+            },
+            _links: { self: { href: '/' } }
+          )
+        end.flatten.sort_by(&:create_at)
       end
 
       failed_repositories { names.last(failed_count) }
