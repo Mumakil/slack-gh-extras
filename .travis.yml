@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+- 2.4.0
+services:
+- postgresql
+email: true
+script:
+- bin/rspec
+- bin/rubocop
