@@ -54,7 +54,7 @@ class PullRequestsJob < ApplicationJob
 
   def format_pull_request(pull_request)
     repo = pull_request.base.repo
-    formatted = "<#{pull_request.url}|#{repo.full_name}##{pull_request.number}>"
+    formatted = "<#{pull_request.html_url}|#{repo.full_name}##{pull_request.number}>"
     formatted += " *#{pull_request.title}*"
     formatted += " _by #{pull_request.user.login}_"
     formatted += ", opened #{time_ago_in_words(pull_request.created_at)} ago"

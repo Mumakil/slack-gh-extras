@@ -67,7 +67,7 @@ FactoryGirl.define do
             number: number,
             title: "pr title #{number}",
             created_at: number.days.ago,
-            url: "https://github.com/#{repo}/pulls/#{number}",
+            html_url: "https://github.com/#{repo}/pulls/#{number}",
             user: {
               login: "author #{number}"
             },
